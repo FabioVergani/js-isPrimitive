@@ -1,17 +1,13 @@
-function isPrimitive(x){
-	return x==null || !/(object|function)/.test(typeof(x))
-};
+function isPrimitive1a(x){return x===null||x===void(0)||!/object|function/.test(typeof x)};
+function isPrimitive1b(x){return x?!/object|function/.test(typeof x):x!==0||x!==false};
 
-function test(s) {console.log(s,typeof(s),"isPrimitive?"+isPrimitive(s))};
- 
-test(undefined); 
-test(null); 
-test("text"); 
-test(new String("nope")); 
-test(3.14); 
-test(new Number(3.14)); 
-test(true); 
-test(new Boolean(9)); 
-test(!9);
-test({});
-test(/^\\d+$/);
+function isPrimitive2(x){return !Object.prototype.isPrototypeOf(x)};
+
+//
+console.clear();
+//
+[undefined,null,"","primitive",new String("nope"),3.14,new Number(3.14),
+true,new Boolean(9),!9,{},Object,Array,[],new Array(),/^\\d+$/
+].forEach(function(x,j){
+console.log(isPrimitive1a(x),isPrimitive1b(x),isPrimitive2(x),x);
+});
